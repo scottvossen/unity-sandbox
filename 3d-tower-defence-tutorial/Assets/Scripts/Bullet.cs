@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Transform target;
 
+    public int damage = 50;
     public float speed = 70f;
     public float explosionRadius = 0f;
     public GameObject impactEffect;
@@ -67,9 +68,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void DamageTarget(Transform enemy)
+    private void DamageTarget(Transform enemyTransform)
     {
-        Destroy(enemy.gameObject);
+        var enemy = enemyTransform.GetComponent<Enemy>();
+
+        if (enemy == null)
+        {
+            Debug.LogError("No enemy component found.");
+        }
+
+        enemy?.TakeDamage(damage);
     }
 
     private void OnDrawGizmosSelected()
