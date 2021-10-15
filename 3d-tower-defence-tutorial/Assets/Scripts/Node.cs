@@ -10,6 +10,7 @@ public class Node : MonoBehaviour
     [Header("Optional")]
     public GameObject tower;
     public Color hoverColor;
+    public Color insufficientFundsColor;
     public Vector3 placementOffset;
 
     public Vector3 buildPosition => transform.position + placementOffset;
@@ -35,7 +36,7 @@ public class Node : MonoBehaviour
         {
             rend.material.color = buildManager.CanBuildSelectedTower
                 ? hoverColor 
-                : Color.red;
+                : insufficientFundsColor;
         }
     }
 
