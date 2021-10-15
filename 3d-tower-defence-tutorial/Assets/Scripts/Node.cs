@@ -6,10 +6,13 @@ public class Node : MonoBehaviour
     private BuildManager buildManager;
     private Renderer rend;
     private Color startColor;
-    private GameObject turret;
 
+    [Header("Optional")]
+    public GameObject turret;
     public Color hoverColor;
     public Vector3 placementOffset;
+
+    public Vector3 buildPosition => transform.position + placementOffset;
 
     private void Start()
     {
@@ -27,10 +30,8 @@ public class Node : MonoBehaviour
             return;
         }
 
-        var turretToBuild = buildManager.GetTurretToBuild();
-
-        // highlight the tile if we have a turret to build and there is not currently a turret on it
-        if (turret == null && turretToBuild != null)
+        // highlight the tile if we have a turret to build and there is not currently a turret on this tile
+        if (buildManager.CanBuild && turret == null)
         {
             rend.material.color = hoverColor;
         }
@@ -55,12 +56,10 @@ public class Node : MonoBehaviour
             return;
         }
 
-        var turretToBuild = buildManager.GetTurretToBuild();
-
         // if we have a turret to build, built it
-        if (turretToBuild != null)
+        if (buildManager.CanBuild)
         {
-            turret = Instantiate(turretToBuild, transform.position + placementOffset, transform.rotation);
+            buildManager.BuildTower(this);
 
             // remove tile highlight once it has a turret built on it
             rend.material.color = startColor;

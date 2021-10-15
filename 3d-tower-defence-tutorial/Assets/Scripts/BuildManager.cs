@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    private GameObject turretToBuild;
+    private TowerBlueprint selectedTower;
 
     public static BuildManager instance { get; private set; }
 
-    public GameObject standardTurretPrefab;
-    public GameObject missibleLauncherPrefab;
+    public bool CanBuild => selectedTower != null;
 
     private void Awake()
     {
@@ -22,10 +21,13 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject GetTurretToBuild() => turretToBuild;
-
-    public void SetTurretToBuild(GameObject turret)
+    public void SelectTower(TowerBlueprint tower)
     {
-        turretToBuild = turret;
+        selectedTower = tower;
+    }
+
+    public void BuildTower(Node node)
+    {
+        node.turret = Instantiate(selectedTower.prefab, node.buildPosition, Quaternion.identity);
     }
 }
