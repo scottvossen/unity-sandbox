@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    private TowerBlueprint selectedTower;
+    internal TowerBlueprint selectedTower = null;
 
     public static BuildManager instance { get; private set; }
 
-    public bool CanBuild => selectedTower != null;
+    public bool HasSelectedTower => selectedTower != null;
+
+    public bool CanBuildSelectedTower => HasSelectedTower && PlayerStats.Money >= selectedTower.cost;
 
     private void Awake()
     {
@@ -28,6 +30,13 @@ public class BuildManager : MonoBehaviour
 
     public void BuildTower(Node node)
     {
-        node.turret = Instantiate(selectedTower.prefab, node.buildPosition, Quaternion.identity);
+        if (!CanBuildSelectedTower)
+        {
+            return;
+        }
+
+        node.tower = Instantiate(selectedTower.prefab, node.buildPosition, Quaternion.identity);
+
+        PlayerStats.Money -= selectedTower.cost;
     }
 }

@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     private Color startColor;
 
     [Header("Optional")]
-    public GameObject turret;
+    public GameObject tower;
     public Color hoverColor;
     public Vector3 placementOffset;
 
@@ -31,9 +31,11 @@ public class Node : MonoBehaviour
         }
 
         // highlight the tile if we have a turret to build and there is not currently a turret on this tile
-        if (buildManager.CanBuild && turret == null)
+        if (buildManager.HasSelectedTower && tower == null)
         {
-            rend.material.color = hoverColor;
+            rend.material.color = buildManager.CanBuildSelectedTower
+                ? hoverColor 
+                : Color.red;
         }
     }
 
@@ -51,13 +53,13 @@ public class Node : MonoBehaviour
         }
 
         // do nothing if this tile already has a turret
-        if (turret != null)
+        if (tower != null)
         {
             return;
         }
 
         // if we have a turret to build, built it
-        if (buildManager.CanBuild)
+        if (buildManager.CanBuildSelectedTower)
         {
             buildManager.BuildTower(this);
 
