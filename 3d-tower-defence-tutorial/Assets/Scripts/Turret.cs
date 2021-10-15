@@ -5,12 +5,18 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     private Transform target;
+    private float fireCountdown = 0f;
 
-    public string enemyTag = "Enemy";
+    [Header("Attributes")]
     public float range = 15f;
-    public float turnSpeed = 10f;
+    public float fireRate = 1f;
 
+    [Header("Setup")]
+    public string enemyTag = "Enemy";
+    public float turnSpeed = 10f;
     public Transform pivotPoint;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
 
     private void Start()
     {
@@ -25,13 +31,16 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        // find the target direction, calculate the correct rotation to the target,
-        // and rotate the turret's pivot point using only the y-axis
-        // use lerp to make the rotation more gradual
-        var targetDirection = target.position - transform.position;
-        var lookRotation = Quaternion.LookRotation(targetDirection);
-        var rotation = Quaternion.Lerp(pivotPoint.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        pivotPoint.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        rotateToTarget();
+
+        // if we are able to fire, do so
+        if (fireCountdown <= 0)
+        {
+            Shoot();
+            fireCountdown = 1 / fireRate;
+        }
+
+        fireCountdown -= Time.deltaTime;
     }
 
     private void OnDrawGizmosSelected()
@@ -64,5 +73,26 @@ public class Turret : MonoBehaviour
         target = nearestEnemy != null && shortestDistance <= range
             ? nearestEnemy.transform
             : null;
+    }
+
+    private void rotateToTarget()
+    {
+        // find the target direction, calculate the correct rotation to the target,
+        // and rotate the turret's pivot point using only the y-axis
+        // use lerp to make the rotation more gradual
+        var targetDirection = target.position - transform.position;
+        var lookRotation = Quaternion.LookRotation(targetDirection);
+        var rotation = Quaternion.Lerp(pivotPoint.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        pivotPoint.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    private void Shoot()
+    {
+        // instantiate bullet
+        var bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var bullet = bulletGameObject.GetComponent<Bullet>();
+
+        // set target for bullet
+        bullet?.Seek(target);
     }
 }
