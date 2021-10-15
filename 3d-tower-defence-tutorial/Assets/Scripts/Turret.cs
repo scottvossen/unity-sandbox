@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    // TODO: Improve tower placement by showing the range before placing a tower
+
     private Transform target;
     private float fireCountdown = 0f;
 
