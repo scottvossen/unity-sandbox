@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour
 {
+    private BuildManager buildManager;
     private Renderer rend;
     private Color startColor;
     private GameObject turret;
@@ -11,14 +13,24 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
+        buildManager = BuildManager.instance;
+
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
     }
 
     private void OnMouseEnter()
     {
-        // highlight nodes that can have turrets placed on them
-        if (turret == null)
+        // if we're hovering over a UI element, do nothing
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        var turretToBuild = buildManager.GetTurretToBuild();
+
+        // highlight the tile if we have a turret to build and there is not currently a turret on it
+        if (turret == null && turretToBuild != null)
         {
             rend.material.color = hoverColor;
         }
@@ -31,16 +43,27 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
+        // if we're hovering over a UI element, do nothing
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        // do nothing if this tile already has a turret
         if (turret != null)
         {
             return;
         }
 
-        // build a turret
-        var turretToBuild = BuildManager.instance.GetTurretToBuild();
-        turret = Instantiate(turretToBuild, transform.position + placementOffset, transform.rotation);
+        var turretToBuild = buildManager.GetTurretToBuild();
 
-        // remove tile highlight immediately
-        rend.material.color = startColor;
+        // if we have a turret to build, built it
+        if (turretToBuild != null)
+        {
+            turret = Instantiate(turretToBuild, transform.position + placementOffset, transform.rotation);
+
+            // remove tile highlight once it has a turret built on it
+            rend.material.color = startColor;
+        }
     }
 }
