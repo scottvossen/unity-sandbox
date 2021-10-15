@@ -11,10 +11,10 @@ public class CameraController : MonoBehaviour
     public float scrollSpeed = 5f;
     public float minY = 10f;
     public float maxY = 80f;
-    public float minX = -50f;
-    public float maxX = 100f;
-    public float minZ = -50f;
-    public float maxZ = 100f;
+    public float minX = -20f;
+    public float maxX = 40f;
+    public float minZ = -20f;
+    public float maxZ = 40f;
 
     private void Update()
     {
@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
         var position = transform.position;
 
         position.x = Mathf.Clamp(transform.position.x, minX, maxX);
-        position.x = Mathf.Clamp(transform.position.z, minZ, maxZ);
+        position.z = Mathf.Clamp(transform.position.z, minZ, maxZ);
 
         transform.position = position;
     }
