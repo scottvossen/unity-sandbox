@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    // TODO: Add better indicators for which turret is selected
+
     private BuildManager buildManager;
 
     private void Start()
@@ -13,8 +15,8 @@ public class Shop : MonoBehaviour
     {
         buildManager.SetTurretToBuild(buildManager.standardTurretPrefab);
     }
-    public void PurchaseAnotherTurret()
+    public void PurchaseMissileLauncher()
     {
-        buildManager.SetTurretToBuild(buildManager.anotherTurretPrefab);
+        buildManager.SetTurretToBuild(buildManager.missibleLauncherPrefab);
     }
 }
