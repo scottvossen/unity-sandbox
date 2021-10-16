@@ -85,7 +85,7 @@ public class Tower : MonoBehaviour
             ? nearestEnemy.transform
             : null;
 
-        targetEnemy = target.GetComponent<Enemy>();
+        targetEnemy = target?.GetComponent<Enemy>();
     }
 
     private void lockOnTarget()

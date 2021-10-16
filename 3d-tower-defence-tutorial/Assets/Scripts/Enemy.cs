@@ -19,6 +19,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Slow(float slowPercentage)
+    {
+        var slowedSpeed = baseSpeed * (1f - slowPercentage);
+
+        // only apply the slowed speed if it's worse than our current speed
+        // - we may already have stronger debuff applied to our speed
+        speed = slowedSpeed < speed ? slowedSpeed : speed;
+    }
+
     private void Start()
     {
         speed = baseSpeed;
@@ -35,14 +44,5 @@ public class Enemy : MonoBehaviour
 
         // destroy object
         Destroy(gameObject);
-    }
-
-    private void Slow(float slowPercentage)
-    {
-        var slowedSpeed = baseSpeed * (1f - slowPercentage);
-
-        // only apply the slowed speed if it's worse than our current speed
-        // - we may already have stronger debuff applied to our speed
-        speed = slowedSpeed < speed ? slowedSpeed : speed;
     }
 }
