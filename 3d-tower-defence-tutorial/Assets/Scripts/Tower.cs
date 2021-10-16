@@ -19,6 +19,8 @@ public class Tower : MonoBehaviour
     [Header("Beams")]
     public bool UseBeam = false;
     public LineRenderer lineRenderer;
+    public ParticleSystem impactEffect;
+    public Light impactLight;
 
     [Header("Setup")]
     public string enemyTag = "Enemy";
@@ -40,6 +42,8 @@ public class Tower : MonoBehaviour
             if (UseBeam && lineRenderer.enabled)
             {
                 lineRenderer.enabled = false;
+                impactLight.enabled = false;
+                impactEffect.Stop();
             }
 
             return;
@@ -127,9 +131,17 @@ public class Tower : MonoBehaviour
         if (!lineRenderer.enabled)
         {
             lineRenderer.enabled = true;
+            impactLight.enabled = true;
+            impactEffect.Play();
         }
 
+        // track the target with our laser
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, target.position);
+
+        // track the target with the impact effect
+        var impactEffectDirection = firePoint.position - target.position;
+        impactEffect.transform.rotation = Quaternion.LookRotation(impactEffectDirection);
+        impactEffect.transform.position = target.position + impactEffectDirection.normalized;
     }
 }
