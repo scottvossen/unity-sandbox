@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
@@ -7,6 +5,7 @@ public class Tower : MonoBehaviour
     // TODO: Improve tower placement by showing the range before placing a tower
 
     private Transform target;
+    private Enemy targetEnemy;
     private float fireCountdown = 0f;
 
     [Header("General")]
@@ -21,6 +20,8 @@ public class Tower : MonoBehaviour
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
+    public int damageOverTime = 30;
+    public float slowPercentage = .5f;
 
     [Header("Setup")]
     public string enemyTag = "Enemy";
@@ -83,6 +84,8 @@ public class Tower : MonoBehaviour
         target = nearestEnemy != null && shortestDistance <= range
             ? nearestEnemy.transform
             : null;
+
+        targetEnemy = target.GetComponent<Enemy>();
     }
 
     private void lockOnTarget()
@@ -134,6 +137,10 @@ public class Tower : MonoBehaviour
             impactLight.enabled = true;
             impactEffect.Play();
         }
+
+        // apply laser damage
+        targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowPercentage);
 
         // track the target with our laser
         lineRenderer.SetPosition(0, firePoint.position);
