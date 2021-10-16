@@ -2,22 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     // TODO: Improve tower placement by showing the range before placing a tower
 
     private Transform target;
     private float fireCountdown = 0f;
 
-    [Header("Attributes")]
+    [Header("General")]
     public float range = 10f;
+
+    [Header("Projectiles (default)")]
     public float fireRate = 1f;
+    public GameObject bulletPrefab;
+
+    [Header("Beams")]
+    public bool UseBeam = false;
+    public LineRenderer lineRenderer;
 
     [Header("Setup")]
     public string enemyTag = "Enemy";
     public float turnSpeed = 10f;
     public Transform pivotPoint;
-    public GameObject bulletPrefab;
     public Transform firePoint;
 
     private void Start()
@@ -30,19 +36,17 @@ public class Turret : MonoBehaviour
     {
         if (target == null)
         {
+            // shut off the laser when we lose our target
+            if (UseBeam && lineRenderer.enabled)
+            {
+                lineRenderer.enabled = false;
+            }
+
             return;
         }
 
-        rotateToTarget();
-
-        // if we are able to fire, do so
-        if (fireCountdown <= 0)
-        {
-            Shoot();
-            fireCountdown = 1 / fireRate;
-        }
-
-        fireCountdown -= Time.deltaTime;
+        lockOnTarget();
+        fireOnTarget();
     }
 
     private void OnDrawGizmosSelected()
@@ -77,7 +81,7 @@ public class Turret : MonoBehaviour
             : null;
     }
 
-    private void rotateToTarget()
+    private void lockOnTarget()
     {
         // find the target direction, calculate the correct rotation to the target,
         // and rotate the turret's pivot point using only the y-axis
@@ -88,6 +92,25 @@ public class Turret : MonoBehaviour
         pivotPoint.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
+    private void fireOnTarget()
+    {
+        if (UseBeam)
+        {
+            Laser();
+        }
+        else
+        {
+            // if we are able to fire, do so
+            if (fireCountdown <= 0)
+            {
+                Shoot();
+                fireCountdown = 1 / fireRate;
+            }
+
+            fireCountdown -= Time.deltaTime;
+        }
+    }
+
     private void Shoot()
     {
         // instantiate bullet
@@ -96,5 +119,17 @@ public class Turret : MonoBehaviour
 
         // set target for bullet
         bullet?.Seek(target);
+    }
+
+    private void Laser()
+    {
+        // fire ze lasers!
+        if (!lineRenderer.enabled)
+        {
+            lineRenderer.enabled = true;
+        }
+
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, target.position);
     }
 }
