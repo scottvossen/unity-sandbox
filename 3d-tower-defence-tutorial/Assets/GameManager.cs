@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private bool GameInProgress = true;
+    [HideInInspector]
+    public static bool GameInProgress;
+
+    public GameObject gameOverUI;
+
+    private void Start()
+    {
+        GameInProgress = true;
+    }
 
     void Update()
     {
         if (!GameInProgress)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EndGame();
         }
 
         if (PlayerStats.Lives <= 0)
@@ -22,6 +35,6 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         GameInProgress = false;
-        Debug.Log("Game Over!");
+        gameOverUI.SetActive(true);
     }
 }
