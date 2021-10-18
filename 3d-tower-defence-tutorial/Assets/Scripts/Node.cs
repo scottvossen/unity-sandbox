@@ -49,12 +49,19 @@ public class Node : MonoBehaviour
 
     public void SellTower()
     {
+        // pay that man his money
         PlayerStats.Money += isUpgraded 
             ? blueprint.upgradedSellValue 
             : blueprint.sellValue;
 
+        // remove the tower
         Destroy(tower);
 
+        // do a cool effect
+        var effect = Instantiate(buildManager.sellEffect, buildPosition, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        // reset the tile state
         tower = null;
         blueprint = null;
         isUpgraded = false;

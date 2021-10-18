@@ -6,6 +6,7 @@ public class BuildManager : MonoBehaviour
     private TowerBlueprint selectedTower = null;
 
     public GameObject buildEffect;
+    public GameObject sellEffect;
     public NodeUI nodeUI;
 
     public static BuildManager instance { get; private set; }
