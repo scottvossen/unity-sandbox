@@ -4,8 +4,6 @@ public class CameraController : MonoBehaviour
 {
     private const string MouseScrollWheelAxis = "Mouse ScrollWheel";
 
-    private bool enableCameraControl = true;
-
     public float panSpeed = 30f;
     public float panBorderThickness = 10f;
     public float scrollSpeed = 5f;
@@ -18,20 +16,10 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        HandleTogglingMovement();
-
-        if (GameManager.GameInProgress && enableCameraControl)
+        if (GameManager.GameInProgress)
         {
             HandlePan();
             HandleZoom();
-        }
-    }
-
-    private void HandleTogglingMovement()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            enableCameraControl = !enableCameraControl;
         }
     }
 
