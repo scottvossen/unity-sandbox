@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeUI : MonoBehaviour
@@ -23,5 +21,17 @@ public class NodeUI : MonoBehaviour
     public void Hide()
     {
         ui.SetActive(false);
+    }
+
+    public void Upgrade()
+    {
+        targetNode.UpgradeTower();
+        BuildManager.instance.DeselectNode();
+    }
+
+    public void Sell()
+    {
+        targetNode.SellTower();
+        BuildManager.instance.DeselectNode();
     }
 }

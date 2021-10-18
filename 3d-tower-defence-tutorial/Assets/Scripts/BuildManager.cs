@@ -16,6 +16,8 @@ public class BuildManager : MonoBehaviour
 
     public bool CanBuildSelectedTower => HasSelectedTower && PlayerStats.Money >= selectedTower.cost;
 
+    public TowerBlueprint GetSelectedTower() => selectedTower;
+
     private void Awake()
     {
         if (instance != null)
@@ -56,23 +58,5 @@ public class BuildManager : MonoBehaviour
     {
         selectedNode = null;
         nodeUI.Hide();
-    }
-
-    public void BuildTower(Node node)
-    {
-        if (!CanBuildSelectedTower)
-        {
-            return;
-        }
-
-        // build the tower
-        node.tower = Instantiate(selectedTower.prefab, node.buildPosition, Quaternion.identity);
-
-        // add a build effect and clean up after ourselves
-        var effect = Instantiate(buildEffect, node.buildPosition, Quaternion.identity);
-        Destroy(effect, 5f);
-
-        // pay for the tower
-        PlayerStats.Money -= selectedTower.cost;
     }
 }

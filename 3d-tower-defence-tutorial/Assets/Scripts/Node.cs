@@ -7,13 +7,50 @@ public class Node : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
-    [Header("Optional")]
+    [HideInInspector]
     public GameObject tower;
+    [HideInInspector]
+    public TowerBlueprint blueprint;
+    [HideInInspector]
+    public bool isUpgraded = false;
+
     public Color hoverColor;
     public Color insufficientFundsColor;
     public Vector3 placementOffset;
 
     public Vector3 buildPosition => transform.position + placementOffset;
+
+    public void UpgradeTower()
+    {
+        if (isUpgraded)
+        {
+            return;
+        }
+
+        if (PlayerStats.Money < blueprint.upgradeCost)
+        {
+            return;
+        }
+
+        // replace the tower with it's upgraded version
+        var oldTower = tower;
+        tower = Instantiate(blueprint.upgradedPrefab, buildPosition, Quaternion.identity);
+        Destroy(oldTower);
+
+        // add a build effect and clean up after ourselves
+        var effect = Instantiate(buildManager.buildEffect, buildPosition, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        // pay for the upgrade
+        PlayerStats.Money -= blueprint.upgradeCost;
+
+        isUpgraded = true;
+    }
+
+    public void SellTower()
+    {
+
+    }
 
     private void Start()
     {
@@ -63,7 +100,7 @@ public class Node : MonoBehaviour
         // if we have a turret to build, built it
         if (buildManager.CanBuildSelectedTower)
         {
-            BuildTowerOnNode();
+            BuildTower(buildManager.GetSelectedTower());
         }
     }
 
@@ -72,9 +109,23 @@ public class Node : MonoBehaviour
         buildManager.SelectNode(this);
     }
 
-    private void BuildTowerOnNode()
+    private void BuildTower(TowerBlueprint t)
     {
-        buildManager.BuildTower(this);
+        if (!buildManager.CanBuildSelectedTower)
+        {
+            return;
+        }
+
+        // build the tower
+        tower = Instantiate(t.prefab, buildPosition, Quaternion.identity);
+        blueprint = t;
+
+        // add a build effect and clean up after ourselves
+        var effect = Instantiate(buildManager.buildEffect, buildPosition, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        // pay for the tower
+        PlayerStats.Money -= t.cost;
 
         // remove tile highlight once it has a turret built on it
         rend.material.color = startColor;
