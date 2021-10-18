@@ -25,7 +25,10 @@ public class NodeUI : MonoBehaviour
             ? "MAX" 
             : $"${target.blueprint.upgradeCost}";
 
-        sellValue.text = $"${target.blueprint.sellValue}";
+
+        sellValue.text = targetNode.isUpgraded
+            ? $"${targetNode.blueprint.upgradedSellValue}"
+            : $"${targetNode.blueprint.sellValue}";
 
         // make the UI visible
         ui.SetActive(true);

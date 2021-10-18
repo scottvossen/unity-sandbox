@@ -49,7 +49,15 @@ public class Node : MonoBehaviour
 
     public void SellTower()
     {
+        PlayerStats.Money += isUpgraded 
+            ? blueprint.upgradedSellValue 
+            : blueprint.sellValue;
 
+        Destroy(tower);
+
+        tower = null;
+        blueprint = null;
+        isUpgraded = false;
     }
 
     private void Start()

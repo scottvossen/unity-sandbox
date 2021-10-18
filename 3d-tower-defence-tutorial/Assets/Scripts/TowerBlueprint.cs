@@ -11,4 +11,5 @@ public class TowerBlueprint
     public int upgradeCost;
 
     public int sellValue;
+    public int upgradedSellValue => sellValue * 2;
 }
