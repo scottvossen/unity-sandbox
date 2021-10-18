@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour
 {
     private Node targetNode;
     
     public GameObject ui;
+    public Text upgradeCost;
+    public Button upgradeButton;
+    public Text sellValue;
+    public Button sellButton;
 
     public void SetTarget(Node target)
     {
@@ -13,6 +18,14 @@ public class NodeUI : MonoBehaviour
 
         // move our game object to hover over the node
         transform.position = target.buildPosition;
+
+        // update the menu items
+        upgradeButton.interactable = !target.isUpgraded;
+        upgradeCost.text = targetNode.isUpgraded 
+            ? "MAX" 
+            : $"${target.blueprint.upgradeCost}";
+
+        sellValue.text = $"${target.blueprint.sellValue}";
 
         // make the UI visible
         ui.SetActive(true);
