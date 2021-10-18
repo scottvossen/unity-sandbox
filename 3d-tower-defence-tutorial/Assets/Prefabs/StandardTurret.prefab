@@ -60,7 +60,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a8ffd7bb5105d0742893854dfc542df7, type: 2}
-  - {fileID: 2100000, guid: d4ff80b3dfa0f6541bde9a35271a822f, type: 2}
+  - {fileID: 2100000, guid: 3373cb8ba9c438c458d1172df2850e17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,10 +212,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 15
   fireRate: 0.75
+  bulletPrefab: {fileID: 1423758115555773507, guid: 3363cc7b2f95aa444a1e93af6341e441, type: 3}
+  UseBeam: 0
+  lineRenderer: {fileID: 0}
+  impactEffect: {fileID: 0}
+  impactLight: {fileID: 0}
+  damageOverTime: 30
+  slowPercentage: 0.5
   enemyTag: Enemy
   turnSpeed: 10
   pivotPoint: {fileID: 377998911463325222}
-  bulletPrefab: {fileID: 1423758115555773507, guid: 3363cc7b2f95aa444a1e93af6341e441, type: 3}
   firePoint: {fileID: 2248927271582482646}
 --- !u!1 &3837027183339345627
 GameObject:
