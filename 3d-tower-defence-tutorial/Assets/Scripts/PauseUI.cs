@@ -1,17 +1,30 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour
 {
+    private int keypressThrottleTimeMs = 250;
+    private Stopwatch keypressThrottleTimer;
+
     public GameObject pauseUI;
     public string menuSceneName = "MainMenu";
     //public SceneFader sceneFader;
 
+    private void Start()
+    {
+        keypressThrottleTimer = Stopwatch.StartNew();
+    }
+
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if (keypressThrottleTimer.ElapsedMilliseconds >= keypressThrottleTimeMs)
         {
-            Toggle();
+            if (Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+            {
+                Toggle();
+                keypressThrottleTimer.Restart();
+            }
         }
     }
 
