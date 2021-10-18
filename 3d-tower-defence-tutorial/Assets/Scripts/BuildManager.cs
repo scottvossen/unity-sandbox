@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    internal TowerBlueprint selectedTower = null;
+    private Node selectedNode = null;
+    private TowerBlueprint selectedTower = null;
 
     public GameObject buildEffect;
+    public NodeUI nodeUI;
 
     public static BuildManager instance { get; private set; }
+
+    public bool HasSelectedNode => selectedNode != null;
 
     public bool HasSelectedTower => selectedTower != null;
 
@@ -27,7 +29,33 @@ public class BuildManager : MonoBehaviour
 
     public void SelectTower(TowerBlueprint tower)
     {
+        // toggle off tower management mode
+        DeselectNode();
+
         selectedTower = tower;
+    }
+
+    public void SelectNode(Node node)
+    {
+        // toggle off tower selection mode
+        selectedTower = null;
+
+        // if we're selecting the same node twice, we should instead deselect it
+        if (selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+
+        // select the node
+        selectedNode = node;
+        nodeUI.SetTarget(node);
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        nodeUI.Hide();
     }
 
     public void BuildTower(Node node)

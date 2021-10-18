@@ -53,19 +53,30 @@ public class Node : MonoBehaviour
             return;
         }
 
-        // do nothing if this tile already has a turret
+        // select the node if the tile already has a turret
         if (tower != null)
         {
+            SelectNodeForTowerManagement();
             return;
         }
 
         // if we have a turret to build, built it
         if (buildManager.CanBuildSelectedTower)
         {
-            buildManager.BuildTower(this);
-
-            // remove tile highlight once it has a turret built on it
-            rend.material.color = startColor;
+            BuildTowerOnNode();
         }
+    }
+
+    private void SelectNodeForTowerManagement()
+    {
+        buildManager.SelectNode(this);
+    }
+
+    private void BuildTowerOnNode()
+    {
+        buildManager.BuildTower(this);
+
+        // remove tile highlight once it has a turret built on it
+        rend.material.color = startColor;
     }
 }
