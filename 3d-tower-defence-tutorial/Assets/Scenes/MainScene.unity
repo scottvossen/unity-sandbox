@@ -1240,7 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69287c690a4194e4cbee7aff522833c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 400
+  startMoney: 9999
   startLives: 10
 --- !u!114 &145403358
 MonoBehaviour:
@@ -5601,13 +5601,13 @@ MonoBehaviour:
   missileLauncher:
     prefab: {fileID: 6806318070637037809, guid: ce1207156b32ea54aa2641c713c66ad8, type: 3}
     cost: 250
-    upgradedPrefab: {fileID: 0}
+    upgradedPrefab: {fileID: 6806318070637037809, guid: d84430a9480841e478f8e32224ff16dc, type: 3}
     upgradeCost: 100
     sellValue: 0
   laserBeamer:
     prefab: {fileID: 7105855616380802305, guid: 71043df20b4d0c042ae662556915e256, type: 3}
     cost: 350
-    upgradedPrefab: {fileID: 0}
+    upgradedPrefab: {fileID: 7105855616380802305, guid: 14d988d812937e14db1f9696585ccc6b, type: 3}
     upgradeCost: 150
     sellValue: 0
 --- !u!1001 &1163288576
