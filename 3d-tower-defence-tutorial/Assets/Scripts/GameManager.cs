@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +7,15 @@ public class GameManager : MonoBehaviour
     public static bool GameInProgress;
 
     public GameObject gameOverUI;
+    public SceneFader sceneFader;
+    public string nextLevel = "Level02";
+    public int levelUnlock = 2;
+
+    public void WinLevel()
+    {
+        PlayerPrefs.SetInt(PlayerPrefKeys.LevelReached, levelUnlock);
+        sceneFader.FadeTo(nextLevel);
+    }
 
     private void Start()
     {
