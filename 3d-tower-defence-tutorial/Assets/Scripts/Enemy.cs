@@ -50,7 +50,8 @@ public class Enemy : MonoBehaviour
         var effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
 
-        // destroy object
+        // kill this enemy
         Destroy(gameObject);
+        WaveSpawner.enemyCount--;
     }
 }

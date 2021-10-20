@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\SceneFader.cs" />
+    <Compile Include="Assets\Scripts\Wave.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
