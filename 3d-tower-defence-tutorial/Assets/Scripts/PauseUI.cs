@@ -9,7 +9,7 @@ public class PauseUI : MonoBehaviour
 
     public GameObject pauseUI;
     public string menuSceneName = "MainMenu";
-    //public SceneFader sceneFader;
+    public SceneFader sceneFader;
 
     private void Start()
     {
@@ -40,12 +40,12 @@ public class PauseUI : MonoBehaviour
         Toggle();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        //sceneFader.FadeTo(SceneManager.GetActiveScene().name);
+        sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
         Toggle();
-        //sceneFader.FadeTo(menuSceneName);
+        sceneFader.FadeTo(menuSceneName);
     }
 }
