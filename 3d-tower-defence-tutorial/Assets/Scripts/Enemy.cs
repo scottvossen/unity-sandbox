@@ -15,12 +15,14 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public float health;
 
+    private bool isDead = false;
+
     public void TakeDamage(float amount)
     {
         health -= amount;
         healthBar.fillAmount = Mathf.Max(0, health / maxHealth);
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             Die();
         }
@@ -43,6 +45,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
+
         // give the player credit
         PlayerStats.Money += value;
 

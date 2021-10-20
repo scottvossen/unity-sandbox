@@ -7,15 +7,7 @@ public class GameManager : MonoBehaviour
     public static bool GameInProgress;
 
     public GameObject gameOverUI;
-    public SceneFader sceneFader;
-    public string nextLevel = "Level02";
-    public int levelUnlock = 2;
-
-    public void WinLevel()
-    {
-        PlayerPrefs.SetInt(PlayerPrefKeys.LevelReached, levelUnlock);
-        sceneFader.FadeTo(nextLevel);
-    }
+    public GameObject completeLevelUI;
 
     private void Start()
     {
@@ -39,5 +31,11 @@ public class GameManager : MonoBehaviour
     {
         GameInProgress = false;
         gameOverUI.SetActive(true);
+    }
+
+    public void WinLevel()
+    {
+        GameInProgress = false;
+        completeLevelUI.SetActive(true);
     }
 }

@@ -76,6 +76,8 @@
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\LevelSelector.cs" />
     <Compile Include="Assets\Scripts\PlayerPrefKeys.cs" />
+    <Compile Include="Assets\Scripts\RoundsSurvived.cs" />
+    <Compile Include="Assets\Scripts\CompleteLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

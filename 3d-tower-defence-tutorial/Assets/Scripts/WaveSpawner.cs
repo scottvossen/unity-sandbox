@@ -24,6 +24,13 @@ public class WaveSpawner : MonoBehaviour
             return;
         }
 
+        // check if there are no more waves
+        if (waveIndex == enemyWaves.Length)
+        {
+            this.enabled = false;
+            gameManager.WinLevel();
+        }
+
         // if the previous wave is eliminate, begin the wave counter
         if (countdown <= 0f)
         {
@@ -53,12 +60,6 @@ public class WaveSpawner : MonoBehaviour
         }
 
         waveIndex++;
-
-        if (waveIndex == enemyWaves.Length)
-        {
-            this.enabled = false;
-            gameManager.WinLevel();
-        }
     }
 
     private void SpawnEnemy(GameObject enemyPrefab)
