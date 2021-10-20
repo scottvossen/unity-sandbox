@@ -1,17 +1,24 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    public float maxHealth = 100;
     public float baseSpeed = 10f;
-    [HideInInspector]
-    public float speed;
-    public float health = 100;
     public int value = 50;
     public GameObject deathEffect;
+    public Image healthBar;
+
+    [HideInInspector]
+    public float speed;
+    
+    [HideInInspector]
+    public float health;
 
     public void TakeDamage(float amount)
     {
         health -= amount;
+        healthBar.fillAmount = Mathf.Max(0, health / maxHealth);
 
         if (health <= 0)
         {
@@ -31,6 +38,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         speed = baseSpeed;
+        health = maxHealth;
     }
 
     private void Die()
