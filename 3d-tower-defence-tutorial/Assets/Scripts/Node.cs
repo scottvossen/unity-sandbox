@@ -6,6 +6,7 @@ public class Node : MonoBehaviour
     private BuildManager buildManager;
     private Renderer rend;
     private Color startColor;
+    private bool towerPlacementIsHovering = false;
 
     [HideInInspector]
     public GameObject tower;
@@ -75,6 +76,14 @@ public class Node : MonoBehaviour
         startColor = rend.material.color;
     }
 
+    private void Update()
+    {
+        if (towerPlacementIsHovering)
+        {
+            SetHoverColor();
+        }
+    }
+
     private void OnMouseEnter()
     {
         // if we're hovering over a UI element, do nothing
@@ -86,14 +95,14 @@ public class Node : MonoBehaviour
         // highlight the tile if we have a turret to build and there is not currently a turret on this tile
         if (buildManager.HasSelectedTower && tower == null)
         {
-            rend.material.color = buildManager.CanBuildSelectedTower
-                ? hoverColor 
-                : insufficientFundsColor;
+            towerPlacementIsHovering = true;
+            SetHoverColor();
         }
     }
 
     private void OnMouseExit()
     {
+        towerPlacementIsHovering = false;
         rend.material.color = startColor;
     }
 
@@ -144,5 +153,12 @@ public class Node : MonoBehaviour
 
         // remove tile highlight once it has a turret built on it
         rend.material.color = startColor;
+    }
+
+    private void SetHoverColor()
+    {
+        rend.material.color = buildManager.CanBuildSelectedTower
+            ? hoverColor
+            : insufficientFundsColor;
     }
 }
