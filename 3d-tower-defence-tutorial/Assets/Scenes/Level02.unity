@@ -397,8 +397,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuSceneName: MainMenu
   sceneFader: {fileID: 1511527378}
-  nextLevel: Level02
-  levelUnlock: 2
+  nextLevel: MainMenu
+  levelUnlock: 0
 --- !u!1 &79740329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8eb4eddcc4660c4da5fc17278385be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shop: {fileID: 1155780452}
   buildEffect: {fileID: 891684888221390984, guid: 299877d1222fb21478153aab2019afe1, type: 3}
   sellEffect: {fileID: 891684888221390984, guid: 43d13afb9c94bc844ae9e2c20584a113, type: 3}
   nodeUI: {fileID: 1860811690}

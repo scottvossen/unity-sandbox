@@ -5,6 +5,7 @@ public class BuildManager : MonoBehaviour
     private Node selectedNode = null;
     private TowerBlueprint selectedTower = null;
 
+    public Shop shop;
     public GameObject buildEffect;
     public GameObject sellEffect;
     public NodeUI nodeUI;
@@ -42,6 +43,7 @@ public class BuildManager : MonoBehaviour
     {
         // toggle off tower selection mode
         selectedTower = null;
+        shop.ClearTowerSelection();
 
         // if we're selecting the same node twice, we should instead deselect it
         if (selectedNode == node)

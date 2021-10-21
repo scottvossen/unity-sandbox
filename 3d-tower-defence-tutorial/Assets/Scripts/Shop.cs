@@ -23,27 +23,27 @@ public class Shop : MonoBehaviour
     {
         if (selectedTowerBackground != null)
         {
-            selectedTowerBackground.color = SetRgb(selectedTowerBackground.color, getSelectedTowerColor());
+            selectedTowerBackground.color = SetRgb(selectedTowerBackground.color, GetSelectedTowerColor());
         }
     }
 
     public void SelectStandardTurret()
     {
         buildManager.SelectTower(standardTurret);
-        selectTower(standardTurret, standardTurretButtonBackground);
+        SelectTower(standardTurret, standardTurretButtonBackground);
     }
     public void SelectMissileLauncher()
     {
         buildManager.SelectTower(missileLauncher);
-        selectTower(missileLauncher, missileLauncherButtonBackground);
+        SelectTower(missileLauncher, missileLauncherButtonBackground);
     }
     public void SelectLaserBeamer()
     {
         buildManager.SelectTower(laserBeamer);
-        selectTower(laserBeamer, laserBeamerButtonBackground);
+        SelectTower(laserBeamer, laserBeamerButtonBackground);
     }
 
-    public void clearTowerSelection()
+    public void ClearTowerSelection()
     {
         standardTurretButtonBackground.enabled = false;
         missileLauncherButtonBackground.enabled = false;
@@ -52,19 +52,19 @@ public class Shop : MonoBehaviour
         selectedTowerBackground = null;
     }
 
-    private void selectTower(TowerBlueprint tower, Image background)
+    private void SelectTower(TowerBlueprint tower, Image background)
     {
         buildManager.SelectTower(tower);
 
-        clearTowerSelection();
+        ClearTowerSelection();
 
-        background.color = SetRgb(background.color, getSelectedTowerColor());
+        background.color = SetRgb(background.color, GetSelectedTowerColor());
         background.enabled = true;
 
         selectedTowerBackground = background;
     }
 
-    private Color getSelectedTowerColor()
+    private Color GetSelectedTowerColor()
     {
         return buildManager.CanBuildSelectedTower ? Color.white : Color.red;
     }
