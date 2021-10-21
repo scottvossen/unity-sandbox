@@ -38,8 +38,6 @@ public class PauseUI : MonoBehaviour
     public void Retry()
     {
         Toggle();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
         sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 

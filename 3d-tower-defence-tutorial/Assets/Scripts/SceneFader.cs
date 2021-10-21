@@ -20,7 +20,7 @@ public class SceneFader : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        float t = 1f;
+        var t = 1f;
 
         // fade in
         while (t > 0)
@@ -28,7 +28,7 @@ public class SceneFader : MonoBehaviour
             t -= Time.deltaTime;
 
             // get the alpha value based on our fade curve
-            float a = fadeCurve.Evaluate(t);
+            var a = fadeCurve.Evaluate(t);
 
             // change alpha of black background over time
             image.color = new Color(0f, 0f, 0f, a);
@@ -40,7 +40,7 @@ public class SceneFader : MonoBehaviour
 
     private IEnumerator FadeOut(string scene)
     {
-        float t = 0f;
+        var t = 0f;
 
         // fade out
         while (t < 1f)
@@ -48,7 +48,7 @@ public class SceneFader : MonoBehaviour
             t += Time.deltaTime;
 
             // get the alpha value based on our fade curve
-            float a = fadeCurve.Evaluate(t);
+            var a = fadeCurve.Evaluate(t);
 
             // change alpha of black background over time
             image.color = new Color(0f, 0f, 0f, a);
