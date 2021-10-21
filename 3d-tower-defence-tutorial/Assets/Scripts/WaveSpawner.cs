@@ -16,6 +16,11 @@ public class WaveSpawner : MonoBehaviour
 
     public GameManager gameManager;
 
+    private void Start()
+    {
+        enemyCount = 0;
+    }
+
     private void Update()
     {
         // wait until the previous wave is eliminated
@@ -27,8 +32,8 @@ public class WaveSpawner : MonoBehaviour
         // check if there are no more waves
         if (waveIndex == enemyWaves.Length)
         {
-            this.enabled = false;
             gameManager.WinLevel();
+            enabled = false;
         }
 
         // if the previous wave is eliminate, begin the wave counter
