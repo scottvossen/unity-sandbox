@@ -1,9 +1,7 @@
 # Basic 3D Tower Defense Game
-----
 I went through a few of the Brackey's tutorials on youtube to get the majority of this game put together. I tweaked it and added my own features as we went along.
 
 ## Releases
-----
 - [v1.1](Releases/basic-tower-defense-2021-10-20_f22c854_v1_1.zip)
   - Added background music
   - Add more waves and made them more difficult
