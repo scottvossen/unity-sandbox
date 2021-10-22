@@ -16,6 +16,8 @@ public class WaveSpawner : MonoBehaviour
 
     public GameManager gameManager;
 
+    public int WavesLeft => enemyWaves.Length - waveIndex + 1;
+
     private void Start()
     {
         enemyCount = 0;
