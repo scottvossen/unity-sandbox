@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 15
   baseSpeed: 20
-  value: 10
+  value: 15
   deathEffect: {fileID: 157854231875002266, guid: 928205d0750bf054eafea44ce40f196d, type: 3}
   healthBar: {fileID: 1871391063}
   speed: 10
